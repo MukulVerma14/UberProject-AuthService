@@ -6,6 +6,7 @@ import com.example.uberprojectauthservice.dto.PassengerDto;
 import com.example.uberprojectauthservice.dto.PassengerSignUpRequestDto;
 import com.example.uberprojectauthservice.services.AuthService;
 import com.example.uberprojectauthservice.services.JwtService;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,7 +51,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin/passenger")
-    public ResponseEntity<?> signIn(@RequestBody AuthRequestDto authRequestDto, HttpServletResponse response) {
+    public ResponseEntity<?> signIn(@RequestBody AuthRequestDto authRequestDto, HttpServletResponse response, HttpServletRequest request) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDto.getEmail(), authRequestDto.getPassword()));
         if(authentication.isAuthenticated()) {
             String jwtToken = jwtService.createToken(authRequestDto.getEmail());
@@ -66,4 +67,14 @@ public class AuthController {
             throw new UsernameNotFoundException("Invalid email or password");
         }
     }
+
+    @GetMapping("/validate")
+    public ResponseEntity<?> validate(HttpServletRequest request) {
+        System.out.println("Inside validate controller");
+        for(Cookie cookie : request.getCookies()) {
+            System.out.println(cookie.getName()+ " " + cookie.getValue());
+        }
+        return new  ResponseEntity<>("Success", HttpStatus.OK);
+    }
+
 }
