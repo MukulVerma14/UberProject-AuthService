@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -27,8 +28,10 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final RequestMatcher skipMatcher =
-            PathPatternRequestMatcher.withDefaults()
-                    .matcher(HttpMethod.GET,"/api/v1/auth/validate");
+            new OrRequestMatcher(
+                    PathPatternRequestMatcher.withDefaults().matcher("/api/v1/auth/signup/**"),
+                    PathPatternRequestMatcher.withDefaults().matcher("/api/v1/auth/signin/**")
+            );
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
