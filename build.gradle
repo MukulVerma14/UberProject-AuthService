@@ -22,6 +22,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -29,8 +30,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-flyway'
-
-    implementation 'org.flywaydb:flyway-mysql:10.17.3'
     implementation 'io.jsonwebtoken:jjwt:0.13.0'
 
     compileOnly 'org.projectlombok:lombok'
@@ -44,6 +43,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-flyway-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-web-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'com.example:UberProject-EntityService:0.0.3-SNAPSHOT'
 }
 
 
