@@ -43,7 +43,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-flyway-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-web-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation 'com.example:UberProject-EntityService:0.0.3-SNAPSHOT'
+    implementation 'com.example:UberProject-EntityService:0.0.5-SNAPSHOT'
 }
 
 
